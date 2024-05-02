@@ -6,7 +6,162 @@
         xmlns:local="clr-namespace:SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name ="Grid_Main">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FFDA5A3E" Offset="0.782"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.6*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
+        <!--Верхний текст.Заголовок.-->
+        <TextBlock Name="TextBlock_Header" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                   FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                   Foreground="White" FontSize="20">
+            <TextBlock.Text>DRIVER'S LICENSE</TextBlock.Text>
+        </TextBlock>
+
+        <!--User photo.-->
+        <Image x:Name="Image_UserPhoto"  Grid.Row="1" Grid.RowSpan="4" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="5 10 5 5" />
+        
+        <!--First name and Last name.-->
+        <TextBox x:Name="TextBox_Name" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                 Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" 
+                 VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                 FontWeight="Bold" MaxLength="20" />
+
+
+        <!--Adress.-->
+        <TextBox x:Name="TextBox_Adress" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                 Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                 FontWeight="Bold" MaxLength="20" />
+
+
+        <!--User Number.-->
+        <TextBox x:Name="TextBox_Number" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"
+                 Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold" MaxLength="20"/>
+
+        <!--License class.-->
+        <TextBlock x:Name="TextBlock_Class" Grid.Row="2" Grid.Column="3" Margin="30 0 0 0"
+                   VerticalAlignment="Center" FontSize="22" FontFamily="Arial" FontWeight="Bold" >
+            <TextBlock.Text>CLASS</TextBlock.Text>
+        </TextBlock>
+        <TextBox x:Name="TextBox_Class" Grid.Row="2" Grid.Column="4" Margin="2 10 80 15"
+                 VerticalContentAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold" MaxLength="3" />
+
+        <!--DOB-->
+        <TextBlock x:Name="TextBlock_DOB" Grid.Row="3" Grid.Column="1" Margin="30 0 0 0" VerticalAlignment="Center" FontFamily="Arial" FontSize="22" FontWeight="Bold">
+            <TextBlock.Text>DOB</TextBlock.Text>
+        </TextBlock>
+        <DatePicker x:Name="Calendar_DOB" Grid.Row="3" Grid.Column="2"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5 5 10 5"
+                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"/>
+
+        <!--ISS-->
+        <TextBlock x:Name="TextBlock_ISS" Grid.Row="3" Grid.Column="3"
+                   Margin="30 0 0 0" VerticalAlignment="Center" FontFamily="Arial"
+                   FontSize="22" FontWeight="Bold">
+            <TextBlock.Text>ISS</TextBlock.Text>
+        </TextBlock>
+        <DatePicker x:Name="Calendar_ISS" Grid.Row="3" Grid.Column="4"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5 5 10 5"
+                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"/>
+       
+        <!--EXP-->
+        <TextBlock x:Name="TextBlock_EXP" Grid.Row="4" Grid.Column="3"
+                   Margin="30 0 0 0" VerticalAlignment="Center" FontFamily="Arial"
+                    FontSize="22" FontWeight="Bold">
+            <TextBlock.Text>EXP</TextBlock.Text>
+        </TextBlock>
+        <DatePicker x:Name="Calendar_EXP" Grid.Row="4" Grid.Column="4"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5 5 10 5"
+                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"/>
+        
+        <!--SEX-->
+        <GroupBox x:Name="GroupBox_SEX" Header="SEX" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10 0 10 0" FontFamily="Arial" FontSize="20" FontWeight="Bold">
+            <StackPanel x:Name="StackPanel_SEX"  Orientation="Horizontal">
+                <StackPanel.HorizontalAlignment>Center</StackPanel.HorizontalAlignment>
+            </StackPanel>
+        </GroupBox>
+
+        <!--Eyes-->
+        <TextBlock x:Name="TextBlock_Eyes" Grid.Row="5" Grid.Column="1"
+                   VerticalAlignment="Center" Margin="30 0 0 0"
+                   FontFamily="Arial" FontSize="20" FontWeight="Bold">
+            <TextBlock.Text>Eyes</TextBlock.Text>
+        </TextBlock>
+        <ComboBox x:Name="ComboBox_Eyes" Grid.Row="5" Grid.Column="2"
+                  FontFamily="Arial" FontSize="20" Margin="5 5 10 2"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+        <!--HGT-->
+        <TextBlock x:Name="TextBlock_HGT" Grid.Row="6" Grid.Column="1"
+                   Margin="30 0 0 0" VerticalAlignment="Center" FontFamily="Arial"
+                   FontSize="22" FontWeight="Bold">
+            <TextBlock.Text>HGT</TextBlock.Text>
+        </TextBlock>
+        <Slider x:Name="Slider_HGT" Grid.Row="6" Grid.Column="2"              ValueChanged="Slider_HGT_ValueChanged" VerticalAlignment="Center" Minimum="120" 
+                Maximum="220" IsSelectionRangeEnabled="True" SelectionStart="120"
+                SelectionEnd="220" Value="170" TickPlacement="TopLeft" TickFrequency="20"
+                Height="30" />        
+
+        <TextBlock x:Name="TextBlock_HGTValue" Grid.Row="6" Grid.Column="3"
+                   VerticalAlignment="Center" Margin="20" FontSize="14">
+            <TextBlock.Text>170</TextBlock.Text>
+        </TextBlock>
+
+        <!--Organ donor-->
+        <Grid x:Name="Grid_OrganDonor" Grid.Row="6" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="CheckBox_OraganDonor" Grid.Row="0" Grid.Column="0"
+                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Margin="0 0 10 0"/>
+            <TextBlock x:Name="TextBlock_OrganDonor" Grid.Row="0" Grid.Column="1"
+                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 0 20 0"
+                       FontFamily="Arial" FontSize="18" Text="Organ Donor"/>
+        </Grid>
+
+        <!--Option buttons-->
+        <Grid x:Name="Grid_OptionButtons" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Button_Load" Grid.Column="0" Click="Button_Load_Click"
+                     Margin="10 5 10 5" FontFamily="Arial" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Button.Content>Load</Button.Content>
+                
+            </Button>
+            <Button x:Name="Button_Save" Grid.Column="1" Click="Button_Save_Click"
+                    Margin="10 5 10 5" FontFamily="Arial" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Button.Content>Save</Button.Content>
+            </Button>
+            <Button x:Name="Button_Clear" Grid.Column="2" Click="Button_Clear_Click"
+                    Margin="10 5 10 5" FontFamily="Arial" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Button.Content>Clear</Button.Content>
+            </Button>
+
+        </Grid>
     </Grid>
 </Window>
