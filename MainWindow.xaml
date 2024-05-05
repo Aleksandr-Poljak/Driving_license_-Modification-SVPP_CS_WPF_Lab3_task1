@@ -117,10 +117,10 @@
                    FontSize="22" FontWeight="Bold">
             <TextBlock.Text>HGT</TextBlock.Text>
         </TextBlock>
-        <Slider x:Name="Slider_HGT" Grid.Row="6" Grid.Column="2"              ValueChanged="Slider_HGT_ValueChanged" VerticalAlignment="Center" Minimum="120" 
-                Maximum="220" IsSelectionRangeEnabled="True" SelectionStart="120"
-                SelectionEnd="220" Value="170" TickPlacement="TopLeft" TickFrequency="20"
-                Height="30" />        
+        <Slider x:Name="Slider_HGT" Grid.Row="6" Grid.Column="2"                           VerticalAlignment="Center" Minimum="120" 
+          Maximum="220" IsSelectionRangeEnabled="True" SelectionStart="120"
+          SelectionEnd="220" Value="170" TickPlacement="TopLeft" TickFrequency="20"
+          Height="30" />        
 
         <TextBlock x:Name="TextBlock_HGTValue" Grid.Row="6" Grid.Column="3"
                    VerticalAlignment="Center" Margin="20" FontSize="14">
