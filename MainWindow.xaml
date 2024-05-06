@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:EnumGenderCoverter x:Key="genderConverter"/>
+    </Window.Resources>
     <Grid x:Name ="Grid_Main">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -39,24 +42,28 @@
         </TextBlock>
 
         <!--User photo.-->
-        <Image x:Name="Image_UserPhoto"  Grid.Row="1" Grid.RowSpan="4" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="5 10 5 5" />
+        <Image x:Name="Image_UserPhoto"  Grid.Row="1" Grid.RowSpan="4" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="5 10 5 5" 
+               Source="{Binding PhotoPath}"/>
         
         <!--First name and Last name.-->
         <TextBox x:Name="TextBox_Name" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                  Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" 
                  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
-                 FontWeight="Bold" MaxLength="20" />
+                 FontWeight="Bold" MaxLength="20" 
+                 Text="{Binding NameSurname, Mode=TwoWay}"
+                 />
 
 
         <!--Adress.-->
         <TextBox x:Name="TextBox_Adress" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                  Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
-                 FontWeight="Bold" MaxLength="20" />
+                 FontWeight="Bold" MaxLength="20"
+                 Text="{Binding Adress}"/>
 
 
         <!--User Number.-->
         <TextBox x:Name="TextBox_Number" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"
-                 Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold" MaxLength="20"/>
+                 Margin="10 10 10 5" Padding="2 2 2 2" FontSize="20" FontFamily="Arial" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold" MaxLength="20" Text="{Binding Number}"/>
 
         <!--License class.-->
         <TextBlock x:Name="TextBlock_Class" Grid.Row="2" Grid.Column="3" Margin="30 0 0 0"
@@ -64,7 +71,7 @@
             <TextBlock.Text>CLASS</TextBlock.Text>
         </TextBlock>
         <TextBox x:Name="TextBox_Class" Grid.Row="2" Grid.Column="4" Margin="2 10 80 15"
-                 VerticalContentAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold" MaxLength="3" />
+                 VerticalContentAlignment="Center" FontFamily="Arial" FontSize="20" FontWeight="Bold" MaxLength="3" Text="{Binding ClassLicense}" />
 
         <!--DOB-->
         <TextBlock x:Name="TextBlock_DOB" Grid.Row="3" Grid.Column="1" Margin="30 0 0 0" VerticalAlignment="Center" FontFamily="Arial" FontSize="22" FontWeight="Bold">
@@ -72,7 +79,8 @@
         </TextBlock>
         <DatePicker x:Name="Calendar_DOB" Grid.Row="3" Grid.Column="2"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5 5 10 5"
-                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"/>
+                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"
+                    SelectedDate="{Binding DOB}"/>
 
         <!--ISS-->
         <TextBlock x:Name="TextBlock_ISS" Grid.Row="3" Grid.Column="3"
@@ -82,7 +90,8 @@
         </TextBlock>
         <DatePicker x:Name="Calendar_ISS" Grid.Row="3" Grid.Column="4"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5 5 10 5"
-                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"/>
+                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"
+                    SelectedDate="{Binding ISS}"/>
        
         <!--EXP-->
         <TextBlock x:Name="TextBlock_EXP" Grid.Row="4" Grid.Column="3"
@@ -92,12 +101,19 @@
         </TextBlock>
         <DatePicker x:Name="Calendar_EXP" Grid.Row="4" Grid.Column="4"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5 5 10 5"
-                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"/>
+                    SelectedDateFormat="Short" FirstDayOfWeek="Monday"
+                    SelectedDate="{Binding EXP}"/>
         
         <!--SEX-->
         <GroupBox x:Name="GroupBox_SEX" Header="SEX" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10 0 10 0" FontFamily="Arial" FontSize="20" FontWeight="Bold">
             <StackPanel x:Name="StackPanel_SEX"  Orientation="Horizontal">
                 <StackPanel.HorizontalAlignment>Center</StackPanel.HorizontalAlignment>
+                <RadioButton x:Name="RedioButton_Male" Content="male"
+                             IsChecked="{Binding Path=Gender, Converter={StaticResource genderConverter}, ConverterParameter={x:Static local:GenderEnum.male}}"/>
+                <RadioButton x:Name="RedioButton_Female" Content="female"
+                             IsChecked="{Binding Path=Gender, Converter={StaticResource genderConverter}, ConverterParameter={x:Static local:GenderEnum.female}}"/>
+                <RadioButton x:Name="RedioButton_Other" Content="other"
+                             IsChecked="{Binding Path=Gender, Converter={StaticResource genderConverter}, ConverterParameter={x:Static local:GenderEnum.other}}"/>
             </StackPanel>
         </GroupBox>
 
@@ -119,12 +135,13 @@
         </TextBlock>
         <Slider x:Name="Slider_HGT" Grid.Row="6" Grid.Column="2"                           VerticalAlignment="Center" Minimum="120" 
           Maximum="220" IsSelectionRangeEnabled="True" SelectionStart="120"
-          SelectionEnd="220" Value="170" TickPlacement="TopLeft" TickFrequency="20"
-          Height="30" />        
+          SelectionEnd="220" TickPlacement="TopLeft" TickFrequency="20"
+          Height="30" Value="{Binding HGT}" />        
 
         <TextBlock x:Name="TextBlock_HGTValue" Grid.Row="6" Grid.Column="3"
-                   VerticalAlignment="Center" Margin="20" FontSize="14">
-            <TextBlock.Text>170</TextBlock.Text>
+                   VerticalAlignment="Center" Margin="20" FontSize="14"
+                   Text="{Binding ElementName=Slider_HGT, Path=Value}">
+            
         </TextBlock>
 
         <!--Organ donor-->
@@ -135,7 +152,7 @@
             </Grid.ColumnDefinitions>
             <CheckBox x:Name="CheckBox_OraganDonor" Grid.Row="0" Grid.Column="0"
                       VerticalAlignment="Center" HorizontalAlignment="Right"
-                      Margin="0 0 10 0"/>
+                      Margin="0 0 10 0" IsChecked="{Binding OrganDonor}"/>
             <TextBlock x:Name="TextBlock_OrganDonor" Grid.Row="0" Grid.Column="1"
                        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 0 20 0"
                        FontFamily="Arial" FontSize="18" Text="Organ Donor"/>

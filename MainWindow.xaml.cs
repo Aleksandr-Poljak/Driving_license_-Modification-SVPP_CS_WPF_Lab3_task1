@@ -24,7 +24,8 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         public MainWindow()
         {
             InitializeComponent();  
-            driver = new Driver();
+            driver = new Driver();      
+            Grid_Main.DataContext = driver;
         }
               
         /// <summary>
@@ -40,8 +41,8 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
 
             if (result == true)
             {
-
-                Image_UserPhoto.Source = new BitmapImage(new Uri(dlg.FileName, UriKind.RelativeOrAbsolute));
+                driver.PhotoPath = dlg.FileName;
+                //Image_UserPhoto.Source = new BitmapImage(new Uri(dlg.FileName, UriKind.RelativeOrAbsolute));
             }
             else { return; }
 
@@ -60,11 +61,15 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         /// </summary>
         private void Button_Load_Click(object sender, RoutedEventArgs e)
         {
-            driver = Driver.GetNewRandomDriver();         
+            driver = Driver.GetNewRandomDriver();
+            Grid_Main.DataContext = driver;
+
         }
 
         private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
+            driver = new Driver();
+            Grid_Main.DataContext= driver;
 
         }
     }

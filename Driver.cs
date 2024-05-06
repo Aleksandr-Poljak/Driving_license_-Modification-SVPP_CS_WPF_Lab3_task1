@@ -1,9 +1,11 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xaml;
@@ -17,7 +19,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
     /// <summary>
     /// Driver class.
     /// </summary>
-    class Driver
+    class Driver : INotifyPropertyChanged
     {
 
         private string nameSurname = string.Empty;
@@ -33,18 +35,113 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         private EyesEnum eyes = EyesEnum.Amber;
         private int hgt = 120;
 
-        public string NameSurname { get => nameSurname; set => nameSurname = value; }
-        public int Number { get => number; set => number = value; }
-        public string Adress { get => adress; set => adress = value; }
-        public DateTime DOB { get => dob; set => dob = value; }
-        public char ClassLicense { get => classLicense; set => classLicense = value; }
-        public DateTime ISS { get => iss; set => iss = value; }
-        public DateTime EXP { get => exp; set => exp = value; }
-        public bool OrganDonor { get => organDonor; set => organDonor = value; }
-        public string PhotoPath { get => photoPath; set => photoPath = value; }
-        internal GenderEnum Gender { get => gender; set => gender = value; }
-        internal EyesEnum Eyes { get => eyes; set => eyes = value; }
-        public int HGT { get => hgt; set => hgt = value; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        public string NameSurname {
+            get { return  nameSurname; } 
+            set
+            {
+                nameSurname = value;
+                OnPropertyChanged(nameof(NameSurname));
+            }
+        }
+        public int Number {
+            get => number;
+            set 
+            { 
+                number = value;
+                OnPropertyChanged(nameof(Number));
+                
+            }
+        }
+        public string Adress { 
+            get => adress;
+            set
+            { 
+                adress = value; 
+                OnPropertyChanged(nameof(Adress));
+            }
+        }
+        public DateTime DOB {
+            get => dob;
+            set 
+            {
+                dob = value; 
+                OnPropertyChanged(nameof(DOB));
+            }
+        }
+        public char ClassLicense { 
+            get => classLicense;
+            set
+            {
+                classLicense = value;
+                OnPropertyChanged(nameof(ClassLicense));
+            }
+        }
+        public DateTime ISS { 
+            get => iss;
+            set 
+            {
+                iss = value;
+                OnPropertyChanged(nameof(ISS));
+            }
+        }
+        public DateTime EXP { 
+            get => exp; 
+            set
+            {
+                exp = value;
+                OnPropertyChanged(nameof(EXP));
+            }
+        }
+        public bool OrganDonor { 
+            get => organDonor; 
+            set
+            {
+                organDonor = value;
+                OnPropertyChanged(nameof(OrganDonor));
+            }
+        }
+        public string PhotoPath
+        {
+            get => photoPath;
+            set
+            {
+                photoPath = value;
+                OnPropertyChanged(nameof(PhotoPath));
+            }
+        }
+        public GenderEnum Gender { 
+            get => gender; 
+            set
+            {
+                gender = value;
+                OnPropertyChanged(nameof(Gender));
+            }
+        }
+        public EyesEnum Eyes { 
+            get => eyes; 
+            set
+            {
+                eyes = value;
+                OnPropertyChanged(nameof(Eyes));
+            }
+        }
+        public int HGT { 
+            get => hgt; 
+            set
+            {
+                hgt = value;
+                OnPropertyChanged(nameof(HGT));
+            }
+        }
 
         public Driver() { }
 
@@ -76,8 +173,6 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             return info;
         }
 
-      
-
         /// <summary>
         /// Создает экзмепляр класса Driver c случайными данными
         /// </summary>
@@ -99,7 +194,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             string surname = DriverFakeData.Surnames[rd.Next(DriverFakeData.Surnames.Count)]; // Выбор фамилии
             string r_nameAndSurname = name + " " + surname; // Имя и фамилия
             int r_Hgt = rd.Next(120, 211); // рост
-            bool r_Donor = rd.Next(1) == 0 ? true : false;
+            bool r_Donor = rd.Next(2) == 0 ? true : false;
 
             string r_Adress = DriverFakeData.Adresses[rd.Next(DriverFakeData.Adresses.Count)];
 
@@ -107,19 +202,19 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             int r_number = rd.Next(1, 10000000); // Номер лицензии
 
             DateTime r_Dob = new DateTime(rd.Next(1980, DateTime.Now.AddYears(-15).Year),
-                rd.Next(1, 13), rd.Next(1,29)); // Случайная дата рождения.Возраст не менее 16 лет          
-            DateTime r_Iss = new DateTime(rd.Next(r_Dob.AddYears(17).Year, DateTime.Now.Year),
-                rd.Next(1,13), rd.Next(1,29)); // Случайная дата выдачи лицензии, с 16 лет от даты рождения
+                rd.Next(1, 12), rd.Next(1,28)); // Случайная дата рождения.Возраст не менее 16 лет          
+            DateTime r_Iss = new DateTime(rd.Next(r_Dob.AddYears(16).Year, DateTime.Now.Year),
+                rd.Next(1,12), rd.Next(1,28)); // Случайная дата выдачи лицензии, с 16 лет от даты рождения
             DateTime r_Exp = r_Iss.AddYears(rd.Next(1, 11)); // Случайная дата окончания.
 
             // Случайный выбор фото согласно гендеру.
             string r_PhotoPath = string.Empty;
             if (r_Gender == GenderEnum.male) 
-                r_PhotoPath = DriverFakeData.MalePhotos[rd.Next(DriverFakeData.MalePhotos.Count)].Name;
+                r_PhotoPath = DriverFakeData.MalePhotos[rd.Next(DriverFakeData.MalePhotos.Count)].FullName;
             if (r_Gender == GenderEnum.female)
-                r_PhotoPath = DriverFakeData.FemalePhotos[rd.Next(DriverFakeData.FemalePhotos.Count)].Name;
+                r_PhotoPath = DriverFakeData.FemalePhotos[rd.Next(DriverFakeData.FemalePhotos.Count)].FullName;
             if (r_Gender == GenderEnum.other)
-                r_PhotoPath = DriverFakeData.AllPhotos[rd.Next(DriverFakeData.AllPhotos.Count)].Name;
+                r_PhotoPath = DriverFakeData.AllPhotos[rd.Next(DriverFakeData.AllPhotos.Count)].FullName;
 
             // Экземпляр с набором случайных данных.
             Driver newDriver = new Driver(r_nameAndSurname, r_number, r_Adress, r_Dob, r_Class_License,
