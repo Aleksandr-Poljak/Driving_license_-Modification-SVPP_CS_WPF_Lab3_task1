@@ -3,11 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <local:EnumGenderCoverter x:Key="genderConverter"/>
+        <local:ImageConverter x:Key="imageConverter"/>
+        <ObjectDataProvider x:Key="EyesFromEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:EyesEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid x:Name ="Grid_Main">
         <Grid.Background>
@@ -43,7 +50,7 @@
 
         <!--User photo.-->
         <Image x:Name="Image_UserPhoto"  Grid.Row="1" Grid.RowSpan="4" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="5 10 5 5" 
-               Source="{Binding PhotoPath}"/>
+               Source="{Binding PhotoPath, Converter={StaticResource imageConverter}}"/>
         
         <!--First name and Last name.-->
         <TextBox x:Name="TextBox_Name" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
@@ -125,7 +132,10 @@
         </TextBlock>
         <ComboBox x:Name="ComboBox_Eyes" Grid.Row="5" Grid.Column="2"
                   FontFamily="Arial" FontSize="20" Margin="5 5 10 2"
-                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                  ItemsSource="{Binding Source={StaticResource EyesFromEnum}}"
+                  SelectedValue="{Binding Eyes}"
+                  />
 
         <!--HGT-->
         <TextBlock x:Name="TextBlock_HGT" Grid.Row="6" Grid.Column="1"
