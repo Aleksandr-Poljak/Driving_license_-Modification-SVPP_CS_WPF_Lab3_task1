@@ -156,7 +156,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
                 {
                     case "ClassLicense":
                         if (classLicense < 'A' || classLicense > 'E')
-                            error = "Недопутсимый символ";
+                            error = "Недопустимый символ";
                             break;
                     case "DOB":
                         if ((DOB < new DateTime(1900, 1, 1)) || (DOB.AddYears(16) > DateTime.Now))
