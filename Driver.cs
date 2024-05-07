@@ -28,11 +28,11 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         private string number = "A0000001";
         private string adress = string.Empty;
         private DateTime dob = new DateTime(1940, 1, 1);
-        private char classLicense = char.MinValue;
+        private char classLicense = 'A';
         private DateTime iss = new DateTime(1960, 1, 1);
-        private DateTime exp = new DateTime(1961, 1, 1);
+        private DateTime exp = DateTime.Now.AddYears(1);
         private bool organDonor = false;
-        private string photoPath = string.Empty;
+        private string photoPath = DriverFakeData.DefaultPhoto;
         private GenderEnum gender = GenderEnum.other;
         private EyesEnum eyes = EyesEnum.Amber;
         private int hgt = 120;
@@ -239,14 +239,14 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
 
             string r_Adress = DriverFakeData.Adresses[rd.Next(DriverFakeData.Adresses.Count)];
 
-            char r_Class_License = (char)('A' + rd.Next(6)); // Символ лицензии
+            char r_Class_License = (char)('A' + rd.Next(5)); // Символ лицензии
             string r_number = rd.Next(1, 10000000).ToString(); // Номер лицензии
 
-            DateTime r_Dob = new DateTime(rd.Next(1980, DateTime.Now.AddYears(-15).Year),
+            DateTime r_Dob = new DateTime(rd.Next(1900, DateTime.Now.AddYears(-15).Year),
                 rd.Next(1, 12), rd.Next(1,28)); // Случайная дата рождения.Возраст не менее 16 лет          
             DateTime r_Iss = new DateTime(rd.Next(r_Dob.AddYears(16).Year, DateTime.Now.Year),
                 rd.Next(1,12), rd.Next(1,28)); // Случайная дата выдачи лицензии, с 16 лет от даты рождения
-            DateTime r_Exp = r_Iss.AddYears(rd.Next(1, 11)); // Случайная дата окончания.
+            DateTime r_Exp = DateTime.Now.AddYears(rd.Next(1,5)); // Дата окончания.
 
             // Случайный выбор фото согласно гендеру.
             string r_PhotoPath = string.Empty;
