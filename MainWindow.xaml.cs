@@ -24,7 +24,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         public MainWindow()
         {
             InitializeComponent();  
-            driver = new Driver();      
+            driver = new Driver();
             Grid_Main.DataContext = driver;
         }
               

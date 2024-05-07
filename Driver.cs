@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xaml;
 using System.Xml.Linq;
@@ -19,14 +21,14 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
     /// <summary>
     /// Driver class.
     /// </summary>
-    class Driver : INotifyPropertyChanged
+    class Driver : INotifyPropertyChanged, IDataErrorInfo
     {
 
         private string nameSurname = string.Empty;
-        private int number = 999999999;
-        private string adress =  string.Empty;
+        private string number = "A0000001";
+        private string adress = string.Empty;
         private DateTime dob = new DateTime(1940, 1, 1);
-        private char classLicense  = char.MinValue;
+        private char classLicense = char.MinValue;
         private DateTime iss = new DateTime(1960, 1, 1);
         private DateTime exp = new DateTime(1961, 1, 1);
         private bool organDonor = false;
@@ -45,39 +47,39 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         }
 
         public string NameSurname {
-            get { return  nameSurname; } 
+            get { return nameSurname; }
             set
             {
                 nameSurname = value;
                 OnPropertyChanged(nameof(NameSurname));
             }
         }
-        public int Number {
+        public string Number {
             get => number;
-            set 
-            { 
+            set
+            {
                 number = value;
                 OnPropertyChanged(nameof(Number));
-                
+
             }
         }
-        public string Adress { 
+        public string Adress {
             get => adress;
             set
-            { 
-                adress = value; 
+            {
+                adress = value;
                 OnPropertyChanged(nameof(Adress));
             }
         }
         public DateTime DOB {
             get => dob;
-            set 
+            set
             {
-                dob = value; 
+                dob = value;
                 OnPropertyChanged(nameof(DOB));
             }
         }
-        public char ClassLicense { 
+        public char ClassLicense {
             get => classLicense;
             set
             {
@@ -85,24 +87,24 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
                 OnPropertyChanged(nameof(ClassLicense));
             }
         }
-        public DateTime ISS { 
+        public DateTime ISS {
             get => iss;
-            set 
+            set
             {
                 iss = value;
                 OnPropertyChanged(nameof(ISS));
             }
         }
-        public DateTime EXP { 
-            get => exp; 
+        public DateTime EXP {
+            get => exp;
             set
             {
                 exp = value;
                 OnPropertyChanged(nameof(EXP));
             }
         }
-        public bool OrganDonor { 
-            get => organDonor; 
+        public bool OrganDonor {
+            get => organDonor;
             set
             {
                 organDonor = value;
@@ -118,24 +120,24 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
                 OnPropertyChanged(nameof(PhotoPath));
             }
         }
-        public GenderEnum Gender { 
-            get => gender; 
+        public GenderEnum Gender {
+            get => gender;
             set
             {
                 gender = value;
                 OnPropertyChanged(nameof(Gender));
             }
         }
-        public EyesEnum Eyes { 
-            get => eyes; 
+        public EyesEnum Eyes {
+            get => eyes;
             set
             {
                 eyes = value;
                 OnPropertyChanged(nameof(Eyes));
             }
         }
-        public int HGT { 
-            get => hgt; 
+        public int HGT {
+            get => hgt;
             set
             {
                 hgt = value;
@@ -143,9 +145,48 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             }
         }
 
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName] 
+        { 
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case "ClassLicense":
+                        if (classLicense < 'A' || classLicense > 'E')
+                            error = "Недопутсимый символ";
+                            break;
+                    case "DOB":
+                        if ((DOB < new DateTime(1900, 1, 1)) || (DOB.AddYears(16) > DateTime.Now))
+                            error = "Некорректная дата рождения";
+                        break;
+                    case "ISS":                       
+                        if (ISS < DOB.AddYears(16))
+                            error += "Пользователю нет 16 лет.";
+                        if (ISS > DateTime.Now)
+                            error += " Некорректная дата выдачи";
+                        break;
+                    case "EXP":
+                        if (EXP < DateTime.Now)
+                            error = "Некорректная дата окончания";
+                        break;
+                    case "Number":
+                        Regex rg = new Regex("[^A-Za-z0-9]");
+                        if (rg.IsMatch(Number))
+                            error = "Некорректный номер лицензии";
+                        break;
+
+                } 
+                return error;
+            }
+
+        }
+
         public Driver() { }
 
-        public Driver(string nameSurname, int number, string adress, DateTime dOB,
+        public Driver(string nameSurname, string number, string adress, DateTime dOB,
             char class_License, DateTime iSS, DateTime eXP, bool organDonor,
             string photoPath, GenderEnum gender, EyesEnum eyes, int hGT)
         {
@@ -199,7 +240,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             string r_Adress = DriverFakeData.Adresses[rd.Next(DriverFakeData.Adresses.Count)];
 
             char r_Class_License = (char)('A' + rd.Next(6)); // Символ лицензии
-            int r_number = rd.Next(1, 10000000); // Номер лицензии
+            string r_number = rd.Next(1, 10000000).ToString(); // Номер лицензии
 
             DateTime r_Dob = new DateTime(rd.Next(1980, DateTime.Now.AddYears(-15).Year),
                 rd.Next(1, 12), rd.Next(1,28)); // Случайная дата рождения.Возраст не менее 16 лет          
