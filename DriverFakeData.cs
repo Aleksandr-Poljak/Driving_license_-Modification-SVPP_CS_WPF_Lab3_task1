@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
 {
-    // Класс содержащий фековый данные для случайного экземпляра Driver.
+    /// <summary>
+    /// Класс содержащий данные для случайного экземпляра Driver.
+    /// </summary>
     public class DriverFakeData
     {
         //static public string PhotosDir = "pack://application:,,,/images/";

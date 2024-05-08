@@ -60,7 +60,6 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             {
                 number = value;
                 OnPropertyChanged(nameof(Number));
-
             }
         }
         public string Adress {
@@ -222,7 +221,6 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         {
             Random rd = new Random();
             
-
             GenderEnum r_Gender = (GenderEnum)rd.Next(Enum.GetValues(typeof(GenderEnum)).Length);
             EyesEnum r_Eyes = (EyesEnum)rd.Next(Enum.GetValues(typeof(EyesEnum)).Length);
 
@@ -261,8 +259,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             Driver newDriver = new Driver(r_nameAndSurname, r_number, r_Adress, r_Dob, r_Class_License,
                 r_Iss, r_Exp, r_Donor, r_PhotoPath, r_Gender, r_Eyes, r_Hgt);
 
-            return newDriver;
-            
+            return newDriver;            
         }
     }
 }

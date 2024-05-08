@@ -63,14 +63,12 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
         {
             driver = Driver.GetNewRandomDriver();
             Grid_Main.DataContext = driver;
-
         }
 
         private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             driver = new Driver();
             Grid_Main.DataContext= driver;
-
         }
     }
 }
