@@ -251,11 +251,11 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
             // Случайный выбор фото согласно гендеру.
             string r_PhotoPath = string.Empty;
             if (r_Gender == GenderEnum.male) 
-                r_PhotoPath = DriverFakeData.MalePhotos[rd.Next(DriverFakeData.MalePhotos.Count)].FullName;
+                r_PhotoPath = DriverFakeData.MalePhotos[rd.Next(DriverFakeData.MalePhotos.Count)];
             if (r_Gender == GenderEnum.female)
-                r_PhotoPath = DriverFakeData.FemalePhotos[rd.Next(DriverFakeData.FemalePhotos.Count)].FullName;
+                r_PhotoPath = DriverFakeData.FemalePhotos[rd.Next(DriverFakeData.FemalePhotos.Count)];
             if (r_Gender == GenderEnum.other)
-                r_PhotoPath = DriverFakeData.AllPhotos[rd.Next(DriverFakeData.AllPhotos.Count)].FullName;
+                r_PhotoPath = DriverFakeData.AllPhotos[rd.Next(DriverFakeData.AllPhotos.Count)];
 
             // Экземпляр с набором случайных данных.
             Driver newDriver = new Driver(r_nameAndSurname, r_number, r_Adress, r_Dob, r_Class_License,

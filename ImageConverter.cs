@@ -13,7 +13,7 @@ namespace SVPP_CS_WPF_Lab3_task1_Driving_license__Modification_
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new BitmapImage(new Uri(value.ToString(), UriKind.RelativeOrAbsolute));
+            return new BitmapImage(new Uri((string) value, UriKind.RelativeOrAbsolute));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
